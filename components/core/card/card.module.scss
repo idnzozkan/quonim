@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: var(--gray-50);
+  box-shadow: var(--black-50) 0 0 2px 0;
+  border-radius: 20px;
+  transition: all 200ms;
+
+  &:hover {
+    background: var(--white);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--gray-100);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: var(--gray-200) 0 0 2px 0;
+}

@@ -1,0 +1,25 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--gray-100);
+}
+
+::selection {
+  background: var(--selection-yellow);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr min(1600px, 80%) 1fr;
+
+  > * {
+    grid-column: 2;
+  }
+}
+
+.wrapper {
+  padding: 36px 0;
+}

@@ -1,0 +1,38 @@
+.footer {
+  display: none;
+  color: var(--black-50);
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.divider {
+  padding: 0 8px;
+}
+
+.links {
+  max-width: 80%;
+}
+
+.link {
+  transition: all 100ms;
+
+  &:hover {
+    color: var(--black-75);
+  }
+}
+
+.copyright {
+  font-size: 12px;
+  margin-top: 5px;
+  strong {
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+  }
+}
