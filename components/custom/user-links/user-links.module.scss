@@ -1,0 +1,23 @@
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 40ch;
+}
+
+.link {
+  margin-bottom: 12px;
+
+  a {
+    background: var(--bluish-gray-400);
+    padding: 7px 6px;
+    border-radius: 10px;
+    color: #fff;
+    transition: all 100ms;
+    font-weight: 500;
+
+    &:hover {
+      background: var(--bluish-gray-500);
+    }
+  }
+}

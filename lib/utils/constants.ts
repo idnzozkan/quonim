@@ -1,0 +1,1 @@
+export const QUESTION_CHAR_LIMIT = 1000
