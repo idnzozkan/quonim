@@ -1,0 +1,41 @@
+/* Base styles */
+.base {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 100ms;
+}
+
+/* Variants */
+.default {
+  background: var(--black-100);
+  color: var(--gray-50);
+
+  &:hover {
+    background: var(--black-150);
+  }
+}
+
+.primary {
+  background: var(--purple-400);
+  color: var(--gray-50);
+
+  &:hover {
+    background: var(--purple-500);
+  }
+}
+
+/* Sizes */
+.md {
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.sm {
+  padding: 8px 5px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
