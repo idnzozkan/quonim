@@ -1,0 +1,67 @@
+.content {
+  min-width: 180px;
+  background-color: var(--gray-50);
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0px 7px 22px -8px rgba(0, 0, 0, 0.15), var(--gray-200) 0 0 2px 0;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-name: slideDownAndFade;
+  will-change: transform, opacity;
+  z-index: 9999;
+}
+
+.item {
+  font-size: 16px;
+  line-height: 2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 5px;
+  position: relative;
+  padding-left: 20px;
+  user-select: none;
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.item[data-disabled] {
+  color: var(--gray-250);
+  pointer-events: none;
+}
+
+.item[data-bold] {
+  font-weight: 500;
+}
+
+.item[data-highlighted] {
+  border: 1px solid var(--gray-125);
+  background: var(--gray-125);
+}
+
+.separator {
+  height: 1px;
+  background-color: var(--gray-100);
+  margin: 5px;
+}
+
+.separator[data-darker] {
+  background-color: var(--gray-125);
+}
+
+.arrow {
+  fill: var(--white);
+  stroke: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

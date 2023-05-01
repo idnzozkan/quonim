@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { Compass } from 'lucide-react'
 
 import styles from './navbar.module.scss'
-import UserAvatar from '../user-avatar'
+import AccountDropdownMenu from '../account-dropdown-menu'
 
 const Navbar = () => {
   return (
@@ -16,12 +16,8 @@ const Navbar = () => {
           <Compass size={20} />
           Explore
         </Link>
-        <div className={styles.avatar}>
-          <UserAvatar
-            src="https://avatars.githubusercontent.com/u/59365742?v=4"
-            width={40}
-            height={40}
-          />
+        <div className={styles.account}>
+          <AccountDropdownMenu />
         </div>
       </nav>
     </header>
