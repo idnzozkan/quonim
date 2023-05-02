@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 
 import styles from './question-form.module.scss'
 import { QUESTION_CHAR_LIMIT } from '../../../lib/utils/constants'
-import Textarea from '../../core/textarea'
-import Button from '../../core/button'
+import { Icons } from '@/components/core/icons'
+import Textarea from '@/components/core/textarea'
+import Button from '@/components/core/button'
 
 const QuestionForm = () => {
   const [question, setQuestion] = useState('')
@@ -27,7 +28,7 @@ const QuestionForm = () => {
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={styles.container}>
       <h3 className={styles.title}>
-        Ask <strong>@deniz</strong> something
+        Ask <strong>@deniz</strong> anonymously
       </h3>
       <Textarea
         maxLength={QUESTION_CHAR_LIMIT}
@@ -42,7 +43,10 @@ const QuestionForm = () => {
           {question.length}/{QUESTION_CHAR_LIMIT}
         </span>
       </div>
-      <Button className={styles.askBtn}>Ask anonymously</Button>
+      <Button className={styles.askBtn}>
+        <Icons.Send size={18} />
+        Send
+      </Button>
     </form>
   )
 }

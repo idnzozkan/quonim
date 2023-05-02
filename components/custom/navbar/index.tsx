@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import clsx from 'clsx'
-import { Compass } from 'lucide-react'
 
 import styles from './navbar.module.scss'
+import { Icons } from '@/components/core/icons'
 import AccountDropdownMenu from '../account-dropdown-menu'
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
           Quonim
         </Link>
         <Link href="/explore" className={styles.explore}>
-          <Compass size={20} />
+          <Icons.Explore size={20} />
           Explore
         </Link>
         <div className={styles.account}>
