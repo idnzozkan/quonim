@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 2rem;
+}
+
+.description {
+  color: var(--gray-300);
+  font-size: 18px;
+}
