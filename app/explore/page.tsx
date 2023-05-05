@@ -4,7 +4,7 @@ import data from '@/data/feed'
 import Masonry from '@/components/core/masonry'
 import QuestionAnswerCard from '@/components/custom/question-answer-card'
 
-const Page = () => {
+const ExplorePage = () => {
   return (
     <Masonry breakpointColumns={{ default: 3, '1280': 2, '1024': 1 }}>
       {data.map((question) => (
@@ -14,4 +14,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default ExplorePage

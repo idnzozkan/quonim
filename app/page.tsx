@@ -5,7 +5,7 @@ import QuestionAnswerCard from '@/components/custom/question-answer-card'
 import SuggestedUsers from '@/components/custom/suggested-users'
 import Footer from '@/components/custom/footer'
 
-const Page = () => {
+const HomePage = () => {
   return (
     <div className={styles.container}>
       <aside className={styles.peopleContainer}>
@@ -25,4 +25,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default HomePage

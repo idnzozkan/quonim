@@ -26,8 +26,12 @@ const AccountDropdownMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div>
-          <DropdownMenuItem asChild bold className={styles.link}>
-            <Link href="/questions">Questions (7)</Link>
+          <DropdownMenuItem asChild>
+            <Link href="/username">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link href="/questions">Questions</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>

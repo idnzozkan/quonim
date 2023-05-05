@@ -9,7 +9,7 @@ interface UserProps {
   params: { username: string }
 }
 
-const User = ({ params }: UserProps) => {
+const UserPage = ({ params }: UserProps) => {
   return (
     <div className={styles.container}>
       <section className={styles.userDetailsContainer}>
@@ -27,4 +27,4 @@ const User = ({ params }: UserProps) => {
   )
 }
 
-export default User
+export default UserPage
