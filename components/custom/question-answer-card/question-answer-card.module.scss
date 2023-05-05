@@ -4,35 +4,3 @@
   font-weight: 500;
   line-height: 1.5;
 }
-
-.dividerDot {
-  padding: 0 4px;
-}
-
-.avatar {
-  flex-shrink: 0;
-}
-
-.answer {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  color: var(--gray-500);
-
-  &Info {
-    display: flex;
-    gap: 7px;
-
-    .name {
-      font-weight: 500;
-    }
-
-    div {
-      color: var(--gray-300);
-    }
-  }
-
-  &Text {
-    line-height: 1.5;
-  }
-}

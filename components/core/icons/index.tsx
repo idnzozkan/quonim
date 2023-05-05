@@ -5,6 +5,7 @@ import {
   MessageCircle,
   Settings,
   Users,
+  Reply,
   type Icon as IconType,
 } from 'lucide-react'
 
@@ -17,4 +18,5 @@ export const Icons = {
   Answers: MessageCircle,
   Settings,
   People: Users,
+  Reply,
 }

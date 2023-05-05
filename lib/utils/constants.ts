@@ -1,1 +1,2 @@
 export const QUESTION_CHAR_LIMIT = 1000
+export const ANSWER_CHAR_LIMIT = 1000
