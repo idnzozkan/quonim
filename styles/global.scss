@@ -23,3 +23,16 @@ body {
 .wrapper {
   padding: 36px 0;
 }
+
+.spinner {
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -6,6 +6,7 @@ import {
   Settings,
   Users,
   Reply,
+  Loader2,
   type Icon as IconType,
 } from 'lucide-react'
 
@@ -19,4 +20,5 @@ export const Icons = {
   Settings,
   People: Users,
   Reply,
+  Spinner: Loader2,
 }

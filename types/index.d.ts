@@ -1,18 +1,29 @@
+import { Types } from 'mongoose'
+
 export interface UserType {
+  id: string
   name: string
   username: string
+  email: string
   avatar: string
+  bio: string
+  links: [
+    {
+      title: string
+      url: string
+    }
+  ]
 }
 
 export interface AnswerType {
   text: string
-  createdAt: number
+  createdAt: Date
 }
 
 export interface QuestionType {
-  id: number
+  _id: string
   to: UserType
   text: string
-  answer: AnswerType | null
-  createdAt: number
+  answer?: AnswerType
+  createdAt: Date
 }

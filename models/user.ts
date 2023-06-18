@@ -1,12 +1,18 @@
-import { Schema, Document, model, models, Model } from 'mongoose'
+import { Document, Model, Schema, Types, model, models } from 'mongoose'
 
-interface UserDocument extends Document {
+export interface UserDocument extends Document {
   name: string
   username: string
   email: string
   avatar: string
-  following: string[]
+  following: Types.ObjectId[]
   bio: string
+  links: [
+    {
+      title: string
+      url: string
+    }
+  ]
 }
 
 const UserSchema = new Schema<UserDocument>({
@@ -37,8 +43,14 @@ const UserSchema = new Schema<UserDocument>({
   bio: {
     type: String,
     default:
-      'Hey there! Feel free to share your thoughts, ideas, and questions anonymously with me.',
+      'Hey there! Feel free to send your thoughts, ideas, and questions anonymously to me on my Quonim profile.',
   },
+  links: [
+    {
+      title: String,
+      url: String,
+    },
+  ],
 })
 
 const User: Model<UserDocument> =
