@@ -5,6 +5,11 @@
   cursor: pointer;
   transition: all 100ms;
   text-align: center;
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 }
 
 /* Variants */
