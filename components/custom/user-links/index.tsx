@@ -1,3 +1,4 @@
+import { UserType } from '@/types'
 import styles from './user-links.module.scss'
 
 interface UserLinkProps {
@@ -15,7 +16,7 @@ const UserLink = ({ href, children }: UserLinkProps) => {
   )
 }
 
-const UserLinks = () => {
+const UserLinks = ({ user }: { user: Pick<UserType, 'links'> }) => {
   return (
     <div>
       <ul className={styles.links}>

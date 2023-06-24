@@ -1,11 +1,13 @@
 import { Document, Model, Schema, Types, model, models } from 'mongoose'
 
 export interface UserDocument extends Document {
+  _id: Types.ObjectId
   name: string
   username: string
   email: string
   avatar: string
-  following: Types.ObjectId[]
+  following: UserDocument[]
+  followers: UserDocument[]
   bio: string
   links: [
     {
@@ -40,6 +42,12 @@ const UserSchema = new Schema<UserDocument>({
       ref: 'User',
     },
   ],
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   bio: {
     type: String,
     default:
@@ -54,6 +62,6 @@ const UserSchema = new Schema<UserDocument>({
 })
 
 const User: Model<UserDocument> =
-  models.User || model<UserDocument>('User', UserSchema)
+  models?.User || model<UserDocument>('User', UserSchema)
 
 export default User

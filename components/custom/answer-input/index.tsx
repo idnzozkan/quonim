@@ -1,52 +1,91 @@
 'use client'
 
-import { useState } from 'react'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Toaster, toast } from 'react-hot-toast'
 
 import styles from './answer-input.module.scss'
-import { ANSWER_CHAR_LIMIT } from '@/lib/utils/constants'
-import { Icons } from '@/components/core/icons'
+import { Icons } from '@/components/support/icons'
 import Button from '@/components/core/button'
 import Textarea from '@/components/core/textarea'
+import { ANSWER_MAX_LENGTH, ANSWER_MIN_LENGTH } from '@/lib/utils/constants'
+import { newAnswerSchema } from '@/lib/utils/validations'
+import { QuestionType } from '@/types'
+import { useRouter } from 'next/navigation'
 
-const AnswerInput = () => {
-  const [answer, setAnswer] = useState('')
+type FormData = z.infer<typeof newAnswerSchema>
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+const AnswerInput = ({ question }: { question: Pick<QuestionType, '_id'> }) => {
+  const {
+    handleSubmit,
+    register,
+    watch,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(newAnswerSchema),
+  })
+  const watchText = watch('text')
+  const router = useRouter()
 
-    if (!answer.length) {
-      return
+  async function onSubmit(d: FormData) {
+    const response = await fetch(`/api/questions/${question._id}/answer`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: d.text,
+      }),
+    })
+
+    if (!response.ok) {
+      return toast.error('Your answer was not published. Please try again.')
     }
 
-    setAnswer('')
-  }
-
-  const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAnswer(e.target.value)
+    router.refresh()
+    reset()
+    toast.success('Your answer has been published.')
   }
 
   return (
-    <form
-      onSubmit={(e) => handleSubmit(e)}
-      className={styles.answerInputContainer}
-    >
-      <Textarea
-        maxLength={ANSWER_CHAR_LIMIT}
-        value={answer}
-        onChange={(e) => handleTyping(e)}
-        placeholder="Type your answer"
-        className={styles.answerInput}
-      />
-      <div className={styles.answerInputInformation}>
-        <span>
-          {answer.length}/{ANSWER_CHAR_LIMIT}
-        </span>
-        <Button variant="primary" size="sm" className={styles.answerBtn}>
-          <Icons.Reply size={16} />
-          Reply
-        </Button>
-      </div>
-    </form>
+    <>
+      <Toaster position="top-right" />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.answerInputContainer}
+      >
+        <Textarea
+          maxLength={ANSWER_MAX_LENGTH}
+          placeholder="Type your answer"
+          className={styles.answerInput}
+          {...register('text')}
+        />
+        <div className={styles.answerInputInformation}>
+          <span>
+            {watchText?.length || 0}/{ANSWER_MAX_LENGTH}
+          </span>
+          <Button
+            disabled={
+              isSubmitting ||
+              !watchText ||
+              watchText.trim().length < ANSWER_MIN_LENGTH
+            }
+            variant="primary"
+            size="sm"
+            className={styles.answerBtn}
+          >
+            {isSubmitting ? (
+              <Icons.Spinner size={18} className="spinner" />
+            ) : (
+              <Icons.Reply size={16} />
+            )}
+            Reply
+          </Button>
+        </div>
+      </form>
+    </>
   )
 }
 

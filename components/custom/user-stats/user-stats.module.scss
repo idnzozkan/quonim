@@ -4,6 +4,7 @@
   background: var(--white);
   padding: 8px 10px;
   width: fit-content;
+  min-height: 52px;
   border: 1px solid var(--gray-150);
   border-radius: 10px;
   font-size: 16px;
@@ -20,6 +21,10 @@
   background: var(--gray-200);
 }
 
-.followBtn {
+.shareProfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   min-width: 10ch;
 }

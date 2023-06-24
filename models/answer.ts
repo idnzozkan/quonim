@@ -2,7 +2,7 @@ import { Model, Schema, Types, model, models } from 'mongoose'
 
 import { ANSWER_MAX_LENGTH, ANSWER_MIN_LENGTH } from '@/lib/utils/constants'
 
-interface AnswerDocument extends Document {
+export interface AnswerDocument extends Document {
   question: Types.ObjectId
   text: string
 }
@@ -24,8 +24,6 @@ const AnswerSchema = new Schema<AnswerDocument>(
     timestamps: true,
   }
 )
-
-console.log('models.Answer', models.Answer)
 
 const Answer: Model<AnswerDocument> =
   models.Answer || model<AnswerDocument>('Answer', AnswerSchema)

@@ -15,12 +15,12 @@ const QuestionAnswerCard = ({ question }: { question: QuestionType }) => {
       <CardFooter>
         {question.answer ? (
           <Answer
-            recipient={question.to}
+            user={question.to}
             text={question.answer.text}
             createdAt={question.createdAt}
           />
         ) : (
-          <AnswerInput />
+          <AnswerInput question={{ _id: question._id }} />
         )}
       </CardFooter>
     </Card>

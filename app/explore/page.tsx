@@ -1,17 +1,37 @@
 import React from 'react'
 
-import data from '@/data/feed'
 import Masonry from '@/components/core/masonry'
 import QuestionAnswerCard from '@/components/custom/question-answer-card'
+import { QuestionType } from '@/types'
+import { connectToDB } from '@/lib/db'
+import Question from '@/models/question'
 
-const ExplorePage = () => {
+async function getQuestions(): Promise<QuestionType[] | null> {
+  try {
+    await connectToDB()
+
+    const questions = (await Question.find({
+      answer: {
+        $ne: null,
+      },
+    })
+      .populate(['to', 'answer'])
+      .sort({ updatedAt: -1 })) as QuestionType[]
+
+    return questions
+  } catch (error) {
+    return null
+  }
+}
+
+export default async function ExplorePage() {
+  const questions = await getQuestions()
+
   return (
     <Masonry breakpointColumns={{ default: 3, '1280': 2, '1024': 1 }}>
-      {data.map((question) => (
-        <QuestionAnswerCard question={question} key={question.id} />
+      {questions?.map((question) => (
+        <QuestionAnswerCard question={question} key={question._id} />
       ))}
     </Masonry>
   )
 }
-
-export default ExplorePage
