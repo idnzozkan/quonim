@@ -12,13 +12,19 @@ import {
   DropdownMenuSeparator,
 } from '@/components/core/dropdown-menu'
 import UserAvatar from '@/components/custom/user-avatar'
+import { signOut } from 'next-auth/react'
+import { UserType } from '@/types'
 
-const AccountDropdownMenu = () => {
+const AccountDropdownMenu = ({
+  user,
+}: {
+  user: Pick<UserType, 'username' | 'avatar'>
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <UserAvatar
-          src="https://avatars.githubusercontent.com/u/59365742?v=4"
+          src={user.avatar}
           width={40}
           height={40}
           className={styles.avatar}
@@ -27,7 +33,7 @@ const AccountDropdownMenu = () => {
       <DropdownMenuContent align="end">
         <div>
           <DropdownMenuItem asChild>
-            <Link href="/username">Profile</Link>
+            <Link href={`/${user.username}`}>Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
@@ -47,7 +53,9 @@ const AccountDropdownMenu = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator darker />
           <DropdownMenuItem asChild>
-            <Link href="/logout">Logout</Link>
+            <Link href="#" onClick={() => signOut()}>
+              Logout
+            </Link>
           </DropdownMenuItem>
         </div>
       </DropdownMenuContent>
