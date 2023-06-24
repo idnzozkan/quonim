@@ -1,0 +1,44 @@
+.input,
+.textarea {
+  outline: 2px solid transparent;
+
+  &:focus {
+    outline: 2px solid var(--bluish-gray-400);
+  }
+}
+
+.formContainer {
+  display: grid;
+  grid-template-rows: auto auto min-content;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.saveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  grid-row: 3;
+  grid-column: 1;
+}
+
+.personalInformation,
+.accountDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1280px) {
+  .formContainer {
+    grid-template-rows: auto min-content;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .saveBtn {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+  }
+}
