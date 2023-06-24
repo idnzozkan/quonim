@@ -9,6 +9,9 @@ const button = cva(styles.base, {
     variant: {
       default: styles.default,
       primary: styles.primary,
+      outline: styles.outline,
+      danger: styles.danger,
+      outlineDanger: styles.outlineDanger,
     },
     size: {
       default: styles.md,

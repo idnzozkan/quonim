@@ -1,19 +1,51 @@
 import React from 'react'
 
 import styles from './suggested-users.module.scss'
-import data from '@/data/users'
 import UserAvatar from '../user-avatar'
-import Button from '@/components/core/button'
 import Link from 'next/link'
+import FollowUnfollowButton from '../follow-unfollow-button'
+import User from '@/models/user'
+import { UserType } from '@/types'
+import { getCurrentUser } from '@/lib/session'
 
-interface UserProps {
-  name: string
-  username: string
-  avatar: string
+type SuggestedUserType = Pick<
+  UserType,
+  '_id' | 'name' | 'username' | 'avatar'
+> & {
   totalAnswers: number
 }
 
-const User = ({ name, username, avatar, totalAnswers }: UserProps) => {
+type SuggestedUsersType = SuggestedUserType[]
+
+export default async function SuggestedUsers() {
+  const users = await getUsers()
+
+  return (
+    <div className={styles.container}>
+      <h3 className={styles.title}>Suggested users</h3>
+      <div className={styles.users}>
+        {users?.map((user) => (
+          <UserRow
+            key={user._id}
+            _id={user._id}
+            avatar={user.avatar}
+            name={user.name}
+            username={user.username}
+            totalAnswers={user.totalAnswers}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function UserRow({
+  _id,
+  name,
+  username,
+  avatar,
+  totalAnswers,
+}: SuggestedUserType) {
   return (
     <div className={styles.user}>
       <div className={styles.userDetails}>
@@ -32,30 +64,69 @@ const User = ({ name, username, avatar, totalAnswers }: UserProps) => {
           <small className={styles.stats}>{totalAnswers} answers</small>
         </div>
       </div>
-      <Button variant="primary" size="sm" className={styles.followBtn}>
-        Follow
-      </Button>
+      <FollowUnfollowButton
+        user={{ _id: _id.toString() }}
+        isFollowing={false}
+        className={styles.followBtn}
+      />
     </div>
   )
 }
 
-const SuggestedUsers = () => {
-  return (
-    <div className={styles.container}>
-      <h3 className={styles.title}>Suggested users</h3>
-      <div className={styles.users}>
-        {data.map((user) => (
-          <User
-            key={user.id}
-            avatar={user.avatar}
-            name={user.name}
-            username={user.username}
-            totalAnswers={user.totalAnswers}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
+// TODO: Separate the rest of the code from this file.
 
-export default SuggestedUsers
+async function getUsers(): Promise<SuggestedUsersType | null> {
+  const match: { username?: {} } = {}
+
+  const authUser = await getCurrentUser()
+
+  if (authUser) {
+    match.username = { $ne: authUser?.username }
+  }
+
+  const users = (await User.aggregate([
+    {
+      $match: match,
+    },
+    {
+      $sample: {
+        size: 6,
+      },
+    },
+    {
+      $lookup: {
+        from: 'questions',
+        localField: '_id',
+        foreignField: 'to',
+        pipeline: [
+          {
+            $match: {
+              answer: { $ne: null },
+            },
+          },
+        ],
+        as: 'questions',
+      },
+    },
+    {
+      $addFields: {
+        totalAnswers: { $size: '$questions' },
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        username: 1,
+        avatar: 1,
+        totalAnswers: 1,
+      },
+    },
+    {
+      $sort: {
+        totalAnswers: -1,
+      },
+    },
+  ])) as SuggestedUsersType
+
+  return users
+}

@@ -8,7 +8,7 @@ import * as z from 'zod'
 
 import { UserType } from '@/types'
 import styles from './question-form.module.scss'
-import { Icons } from '@/components/core/icons'
+import { Icons } from '@/components/support/icons'
 import Textarea from '@/components/core/textarea'
 import Button from '@/components/core/button'
 import { newQuestionSchema } from '@/lib/utils/validations'
@@ -19,7 +19,7 @@ type FormData = z.infer<typeof newQuestionSchema>
 const QuestionForm = ({
   user,
 }: {
-  user: Pick<UserType, 'id' | 'username'>
+  user: Pick<UserType, '_id' | 'username'>
 }) => {
   const {
     handleSubmit,
@@ -33,7 +33,7 @@ const QuestionForm = ({
   const watchText = watch('text')
 
   async function onSubmit(d: FormData) {
-    const response = await fetch(`/api/users/${user.id}/questions`, {
+    const response = await fetch(`/api/users/${user._id}/questions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

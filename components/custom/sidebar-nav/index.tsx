@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 import styles from './sidebar-nav.module.scss'
-import { Icons, Icon } from '@/components/core/icons'
+import { Icons, Icon } from '@/components/support/icons'
 
 const items = [
   {

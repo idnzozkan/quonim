@@ -31,6 +31,37 @@
   }
 }
 
+.danger {
+  background: var(--red-400);
+  color: var(--gray-50);
+
+  &:hover {
+    background: var(--red-500);
+  }
+}
+
+.outline {
+  background: transparent;
+  color: var(--purple-400);
+  border: 1px solid var(--purple-400);
+
+  &:hover {
+    color: var(--gray-50);
+    border: 1px solid var(--purple-500);
+    background: var(--purple-500);
+  }
+}
+
+.outlineDanger {
+  background: var(--red-50);
+  color: var(--red-400);
+  border: 1px solid var(--red-400);
+
+  &:hover {
+    background: var(--red-50);
+  }
+}
+
 /* Sizes */
 .md {
   padding: 8px 10px;

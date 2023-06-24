@@ -1,3 +1,7 @@
+.container {
+  text-align: center;
+}
+
 .name {
   font-size: 44px;
   font-weight: 700;
@@ -10,4 +14,10 @@
   font-size: 20px;
   line-height: 28px;
   margin-top: 12px;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    text-align: left;
+  }
 }

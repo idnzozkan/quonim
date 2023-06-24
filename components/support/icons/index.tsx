@@ -7,6 +7,11 @@ import {
   Users,
   Reply,
   Loader2,
+  Share2,
+  Save,
+  Trash2,
+  X,
+  Plus,
   type Icon as IconType,
 } from 'lucide-react'
 
@@ -21,4 +26,9 @@ export const Icons = {
   People: Users,
   Reply,
   Spinner: Loader2,
+  Share: Share2,
+  Save,
+  Trash: Trash2,
+  Delete: X,
+  Add: Plus,
 }

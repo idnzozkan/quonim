@@ -1,38 +1,39 @@
 import Link from 'next/link'
 import { format } from 'timeago.js'
 
-import { UserType } from 'types'
+import { AnswerType, UserType } from 'types'
 import styles from './answer.module.scss'
 import UserAvatar from '../user-avatar'
 
-interface AnswerProps {
-  recipient: UserType
-  text: string
-  createdAt: number
+interface AnswerProps extends AnswerType {
+  user: UserType
 }
 
-const Answer = ({ recipient, text, createdAt }: AnswerProps) => {
+const Answer = ({ user, text, createdAt }: AnswerProps) => {
   return (
     <>
-      <Link href={`/${recipient.username}`}>
+      <Link href={`/${user.username}`}>
         <UserAvatar
           className={styles.avatar}
-          src={recipient.avatar}
+          src={user.avatar}
           width={36}
           height={36}
         />
       </Link>
       <div className={styles.answer}>
         <div className={styles.answerInfo}>
-          <Link href={`/${recipient.username}`}>
-            <span className={styles.name}>{recipient.name}</span>
+          <Link href={`/${user.username}`}>
+            <span className={styles.name}>{user.name}</span>
           </Link>
           <div>
-            <Link href={`/${recipient.username}`}>
-              <span className={styles.username}>@{recipient.username}</span>
+            <Link href={`/${user.username}`}>
+              <span className={styles.username}>@{user.username}</span>
             </Link>
             <span className={styles.dividerDot}>·</span>
-            <time className={styles.timeAgo}>{format(createdAt, 'short')}</time>
+            <time className={styles.timeAgo}>
+              {/* TODO: Figure out why the ISO 8601 does not work correctly. */}
+              {format(createdAt, 'short')}
+            </time>
           </div>
         </div>
         <div className={styles.answerText}>{text}</div>

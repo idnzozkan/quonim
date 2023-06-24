@@ -2,6 +2,7 @@ import { Document, Model, Schema, Types, model, models } from 'mongoose'
 
 import { QUESTION_MAX_LENGTH, QUESTION_MIN_LENGTH } from '@/lib/utils/constants'
 import { AnswerType, UserType } from '@/types'
+import Answer from './answer'
 
 export interface QuestionDocument extends Document {
   to: Types.ObjectId | UserType
@@ -24,7 +25,7 @@ const QuestionSchema = new Schema<QuestionDocument>(
     },
     answer: {
       type: Schema.Types.ObjectId,
-      ref: 'Answer',
+      ref: Answer, // TODO: idk why but sometimes I get MissingSchemaError when I use normal string 'Answer'
     },
   },
   {

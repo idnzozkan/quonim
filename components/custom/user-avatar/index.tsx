@@ -18,6 +18,7 @@ const UserAvatar = ({ src, width, height, ...props }: UserAvatarProps) => {
           width={width}
           height={height}
           alt="User Avatar"
+          referrerPolicy="no-referrer"
         ></AvatarImage>
       ) : (
         <AvatarFallback>

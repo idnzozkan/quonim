@@ -1,7 +1,7 @@
 import { Types } from 'mongoose'
 
 export interface UserType {
-  id: string
+  _id: string
   name: string
   username: string
   email: string
@@ -13,6 +13,7 @@ export interface UserType {
       url: string
     }
   ]
+  following: UserType[]
 }
 
 export interface AnswerType {
