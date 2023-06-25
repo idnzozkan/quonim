@@ -66,7 +66,6 @@ function UserRow({
       </div>
       <FollowUnfollowButton
         user={{ _id: _id.toString() }}
-        isFollowing={false}
         className={styles.followBtn}
       />
     </div>

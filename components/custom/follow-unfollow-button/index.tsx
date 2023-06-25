@@ -9,7 +9,6 @@ import Button from '@/components/core/button'
 import { useSession } from 'next-auth/react'
 
 interface FollowUnfollowButtonProps {
-  isFollowing?: boolean
   user: Pick<UserType, '_id'>
   className?: string
 }

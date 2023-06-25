@@ -8,26 +8,20 @@ import Button from '@/components/core/button'
 import { Icons } from '@/components/support/icons'
 
 interface UserStatsProps {
-  user: Pick<UserType, '_id'>
+  user: Pick<UserType, '_id'> & { totalAnswers: number; totalFollowers: number }
 }
 
 export default async function UserStats({ user }: UserStatsProps) {
   const authUser = await getCurrentUser()
-  const isFollowing = authUser?.following?.some(
-    (u) => u._id.toString() === user?._id.toString()
-  )
 
   return (
     <div className={styles.stats}>
-      <small>614 answers</small>
+      <small>{user.totalAnswers} answers</small>
       <div className={styles.divider} />
-      <small>127 followers</small>
+      <small>{user.totalFollowers} followers</small>
       <div className={styles.divider} />
       {user._id !== authUser?.id ? (
-        <FollowUnfollowButton
-          user={{ _id: user._id }}
-          isFollowing={isFollowing}
-        />
+        <FollowUnfollowButton user={{ _id: user._id }} />
       ) : (
         <Button variant="primary" size="sm" className={styles.shareProfile}>
           <Icons.Share size={16} />

@@ -45,7 +45,7 @@ const AccountDropdownMenu = ({
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link href="/people">People</Link>
+            <Link href="/following">Following</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>

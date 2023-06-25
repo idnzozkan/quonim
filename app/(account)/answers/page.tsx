@@ -9,6 +9,22 @@ import { UnauthorizedError } from '@/lib/utils/exceptions'
 import { connectToDB } from '@/lib/db'
 import Question from '@/models/question'
 
+export default async function AnswersPage() {
+  const questions = await getQuestions()
+
+  return (
+    <div className={styles.container}>
+      <PageHeader
+        title="Answers"
+        description={`You have answered ${questions?.length} questions.`}
+      />
+      {questions?.map((question) => (
+        <QuestionAnswerCard question={question} key={question._id.toString()} />
+      ))}
+    </div>
+  )
+}
+
 async function getQuestions(): Promise<QuestionType[] | null> {
   try {
     await connectToDB()
@@ -32,20 +48,4 @@ async function getQuestions(): Promise<QuestionType[] | null> {
   } catch (error) {
     return null
   }
-}
-
-export default async function AnswersPage() {
-  const questions = await getQuestions()
-
-  return (
-    <div className={styles.container}>
-      <PageHeader
-        title="Answers"
-        description={`You have answered ${questions?.length} questions.`}
-      />
-      {questions?.map((question) => (
-        <QuestionAnswerCard question={question} key={question._id.toString()} />
-      ))}
-    </div>
-  )
 }

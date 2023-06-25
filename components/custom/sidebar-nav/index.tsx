@@ -20,8 +20,8 @@ const items = [
     icon: <Icons.Answers size={20} />,
   },
   {
-    title: 'People',
-    href: '/people',
+    title: 'Following',
+    href: '/following',
     icon: <Icons.People size={20} />,
   },
   {
