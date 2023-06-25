@@ -3,15 +3,11 @@
 import Button from '@/components/core/button'
 import React, { ReactElement } from 'react'
 
+import { Link } from '@/types'
 import styles from './dynamic-social-links.module.scss'
 import { Icons } from '@/components/support/icons'
 
 type InputElement = ReactElement<React.InputHTMLAttributes<HTMLInputElement>>
-
-interface Link {
-  title: string
-  url: string
-}
 
 interface DynamicSocialLinksProps {
   links: Link[]
@@ -70,7 +66,8 @@ const DynamicSocialLinks = ({
 
   const mapChildComponents = (
     child: InputElement,
-    index: number
+    index: number,
+    key: number
   ): InputElement | null => {
     const { name } = child.props
 
@@ -79,6 +76,7 @@ const DynamicSocialLinks = ({
         value: links[index].title,
         onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
           handleTitleChange(index, e),
+        key,
       })
     }
 
@@ -87,6 +85,7 @@ const DynamicSocialLinks = ({
         value: links[index].url,
         onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
           handleURLChange(index, e),
+        key,
       })
     }
 
@@ -97,7 +96,7 @@ const DynamicSocialLinks = ({
     return links.map((link, index) => {
       return (
         <div className={styles.inputRow} key={index}>
-          {children.map((child) => mapChildComponents(child, index))}
+          {children.map((child, key) => mapChildComponents(child, index, key))}
           {links.length > 1 && (
             <Button
               onClick={(e) => handleDelete(e, index)}

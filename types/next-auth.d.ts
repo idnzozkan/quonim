@@ -6,7 +6,10 @@ declare module 'next-auth' {
   interface Session {
     user: DefaultSession['user'] & {
       id?: string
+      name?: string
       username?: string
+      bio?: string
+      links?: UserDocument['links']
       following?: UserDocument[] | Types.ObjectId[]
     }
   }
