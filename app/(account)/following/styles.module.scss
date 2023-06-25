@@ -1,0 +1,90 @@
+.container {
+  display: grid;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.userContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  flex-shrink: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+}
+
+.name {
+  width: fit-content;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gray-500);
+}
+
+.username {
+  width: fit-content;
+  color: var(--gray-400);
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--gray-300);
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background: var(--gray-250);
+}
+
+@media (min-width: 1280px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .userContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .wrapper {
+    flex-direction: row;
+  }
+
+  .identity {
+    align-items: unset;
+  }
+
+  .stats {
+    justify-content: flex-start;
+  }
+}
