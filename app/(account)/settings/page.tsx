@@ -1,7 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Toaster, toast } from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
 
+import { Link, UserDataType } from '@/types'
 import styles from './styles.module.scss'
 import PageHeader from '@/components/custom/page-header'
 import Input from '@/components/core/input'
@@ -11,30 +14,117 @@ import Label from '@/components/core/label'
 import { Icons } from '@/components/support/icons'
 import DynamicSocialLinks from '@/components/custom/dynamic-social-links'
 
-interface Link {
-  title: string
-  url: string
+const defaultUserData: UserDataType = {
+  name: '',
+  username: '',
+  bio: '',
+  links: [{ title: '', url: '' }],
 }
 
 const SettingsPage = () => {
-  const [links, setLinks] = useState<Link[]>([{ title: '', url: '' }])
+  const { data, update } = useSession()
+
+  const [userData, setUserData] = useState<UserDataType>(defaultUserData)
+  const [links, setLinks] = useState<Link[]>(userData.links)
+
+  const [saving, setSaving] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (!data?.user) {
+      return
+    }
+
+    setUserData({
+      name: data.user.name!,
+      username: data.user.username!,
+      bio: data.user.bio!,
+      links: data.user.links!.length ? data.user.links! : defaultUserData.links,
+    })
+
+    setLinks(data.user.links!.length ? data.user.links! : defaultUserData.links)
+  }, [data?.user])
+
+  useEffect(() => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      links,
+    }))
+  }, [links])
+
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name } = e.target
+
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: e.target.value,
+    }))
+  }
+
+  // TODO: Add validations
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setSaving(true)
+
+    const response = await fetch('/api/me', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+
+    if (!response?.ok) {
+      setSaving(false)
+      if (response.status === 409) {
+        return toast.error('Username is already taken.')
+      }
+      return toast.error('Something went wrong.')
+    }
+
+    toast.success('Your changes saved.')
+    update()
+    setSaving(false)
+  }
 
   return (
     <>
       <PageHeader title="Settings" />
-      <form className={styles.formContainer}>
+      <Toaster position="top-right" />
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         <div className={styles.personalInformation}>
           <div>
             <Label htmlFor="name">Display Name</Label>
-            <Input id="name" className={styles.input} />
+            <Input
+              onChange={handleInputChange}
+              value={userData.name}
+              className={styles.input}
+              id="name"
+              name="name"
+            />
           </div>
           <div>
             <Label htmlFor="username">Username</Label>
-            <Input id="username" className={styles.input} />
+            <Input
+              onChange={handleInputChange}
+              value={userData.username}
+              className={styles.input}
+              id="username"
+              name="username"
+            />
           </div>
           <div>
             <Label htmlFor="bio">Bio</Label>
-            <Textarea id="bio" className={styles.textarea} />
+            <Textarea
+              onChange={handleInputChange}
+              value={userData.bio}
+              className={styles.textarea}
+              id="bio"
+              name="bio"
+            />
           </div>
           <div>
             <Label htmlFor="links">Social Links</Label>
@@ -58,9 +148,13 @@ const SettingsPage = () => {
         <div className={styles.accountDetails}>
           {/* TODO: Add other settings such as visibility, delete account, dark mode, etc. */}
         </div>
-        <Button className={styles.saveBtn} variant="primary">
-          <Icons.Save size={18} />
-          Save
+        <Button disabled={saving} className={styles.saveBtn} variant="primary">
+          {saving ? (
+            <Icons.Spinner size={18} className="spinner" />
+          ) : (
+            <Icons.Save size={18} />
+          )}
+          {saving ? 'Saving' : 'Save'}
         </Button>
       </form>
     </>

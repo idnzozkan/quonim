@@ -15,3 +15,9 @@ export class BadRequestError extends Error {
     super(message)
   }
 }
+
+export class ConflictError extends Error {
+  constructor(message = 'Conflict') {
+    super(message)
+  }
+}

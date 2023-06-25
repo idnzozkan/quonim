@@ -1,5 +1,10 @@
 import { Types } from 'mongoose'
 
+export interface Link {
+  title: string
+  url: string
+}
+
 export interface UserType {
   _id: string
   name: string
@@ -7,12 +12,7 @@ export interface UserType {
   email: string
   avatar: string
   bio: string
-  links: [
-    {
-      title: string
-      url: string
-    }
-  ]
+  links: Link[]
   following: UserType[]
 }
 
@@ -28,3 +28,5 @@ export interface QuestionType {
   answer?: AnswerType
   createdAt: Date
 }
+
+export type UserDataType = Pick<UserType, 'name' | 'username' | 'bio' | 'links'>
