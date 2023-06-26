@@ -38,7 +38,7 @@ export const GET = async (req: Request) => {
     return new Response(JSON.stringify(questions))
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return new Response(error.message, { status: 403 })
+      return new Response(error.message, { status: 401 })
     }
 
     return new Response(null, { status: 500 })
