@@ -1,4 +1,4 @@
-import { Link } from '@/types'
+import { LinkType } from '@/types'
 import { Document, Model, Schema, Types, model, models } from 'mongoose'
 
 export interface UserDocument extends Document {
@@ -10,7 +10,7 @@ export interface UserDocument extends Document {
   following: UserDocument[]
   followers: UserDocument[]
   bio: string
-  links: Link[]
+  links: LinkType[]
 }
 
 const UserSchema = new Schema<UserDocument>({

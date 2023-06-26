@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 
-export interface Link {
+export interface LinkType {
   title: string
   url: string
 }
@@ -12,7 +12,7 @@ export interface UserType {
   email: string
   avatar: string
   bio: string
-  links: Link[]
+  links: LinkType[]
   following: UserType[]
 }
 

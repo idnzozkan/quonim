@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 
-import { Link, UserDataType } from '@/types'
+import { LinkType, UserDataType } from '@/types'
 import styles from './styles.module.scss'
 import PageHeader from '@/components/custom/page-header'
 import Input from '@/components/core/input'
@@ -25,7 +25,7 @@ const SettingsPage = () => {
   const { data, update } = useSession()
 
   const [userData, setUserData] = useState<UserDataType>(defaultUserData)
-  const [links, setLinks] = useState<Link[]>(userData.links)
+  const [links, setLinks] = useState<LinkType[]>(userData.links)
 
   const [saving, setSaving] = useState<boolean>(false)
 
