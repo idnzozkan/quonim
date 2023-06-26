@@ -3,15 +3,15 @@
 import Button from '@/components/core/button'
 import React, { ReactElement } from 'react'
 
-import { Link } from '@/types'
+import { LinkType } from '@/types'
 import styles from './dynamic-social-links.module.scss'
 import { Icons } from '@/components/support/icons'
 
 type InputElement = ReactElement<React.InputHTMLAttributes<HTMLInputElement>>
 
 interface DynamicSocialLinksProps {
-  links: Link[]
-  setLinks: React.Dispatch<React.SetStateAction<Link[]>>
+  links: LinkType[]
+  setLinks: React.Dispatch<React.SetStateAction<LinkType[]>>
   max: number
   children: InputElement[]
   onAdd?: () => void
