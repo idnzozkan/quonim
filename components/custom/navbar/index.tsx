@@ -23,7 +23,10 @@ const Navbar = async () => {
         <div className={styles.account}>
           {user ? (
             <AccountDropdownMenu
-              user={{ avatar: user.image || '', username: user.username || '' }}
+              user={{
+                avatar: user.avatar || '',
+                username: user.username || '',
+              }}
             />
           ) : (
             <LoginButton />
