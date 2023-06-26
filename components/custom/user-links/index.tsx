@@ -1,4 +1,4 @@
-import { Link, UserType } from '@/types'
+import { LinkType, UserType } from '@/types'
 import styles from './user-links.module.scss'
 
 interface UserLinkProps {
@@ -24,7 +24,7 @@ const UserLinks = ({ user }: { user: Pick<UserType, 'links'> }) => {
   return (
     <div>
       <ul className={styles.links}>
-        {user.links.map((link: Link, index: number) => (
+        {user.links.map((link: LinkType, index: number) => (
           <UserLink href={link.url} key={index}>
             {link.title}
           </UserLink>
