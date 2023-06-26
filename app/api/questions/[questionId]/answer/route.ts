@@ -59,7 +59,7 @@ export const POST = async (
     }
 
     if (error instanceof UnauthorizedError) {
-      return new Response(error.message, { status: 403 })
+      return new Response(error.message, { status: 401 })
     }
 
     if (error instanceof NotFoundError) {
