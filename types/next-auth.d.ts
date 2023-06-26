@@ -8,6 +8,7 @@ declare module 'next-auth' {
       id?: string
       name?: string
       username?: string
+      avatar?: string
       bio?: string
       links?: UserDocument['links']
       following?: UserDocument[] | Types.ObjectId[]

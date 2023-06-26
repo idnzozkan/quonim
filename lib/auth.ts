@@ -24,6 +24,7 @@ export const authOptions: NextAuthOptions = {
       session.user.id = user?._id.toString()
       session.user.username = user?.username
       session.user.name = user?.name
+      session.user.avatar = user?.avatar
       session.user.bio = user?.bio
       session.user.links = user?.links
       session.user.following = user?.following
