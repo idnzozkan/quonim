@@ -1,0 +1,11 @@
+.shareProfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 10ch;
+
+  &:active {
+    opacity: 0.5;
+  }
+}
