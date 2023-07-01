@@ -10,3 +10,11 @@
   justify-content: space-between;
   gap: 10px;
 }
+
+.input {
+  outline: 2px solid transparent;
+
+  &:focus {
+    outline: 2px solid var(--bluish-gray-400);
+  }
+}

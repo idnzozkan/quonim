@@ -1,56 +1,47 @@
 'use client'
 
-import Button from '@/components/core/button'
-import React, { ReactElement } from 'react'
+import React from 'react'
+import {
+  Control,
+  FieldErrors,
+  UseFormRegister,
+  useFieldArray,
+} from 'react-hook-form'
+import * as z from 'zod'
 
-import { LinkType } from '@/types'
 import styles from './dynamic-social-links.module.scss'
+import { userUpdateSchema } from '@/lib/utils/validations'
+import { MAX_USER_LINKS } from '@/lib/utils/constants'
 import { Icons } from '@/components/support/icons'
+import Button from '@/components/core/button'
+import Input from '@/components/core/input'
+import FormInputError from '../form-input-error'
 
-type InputElement = ReactElement<React.InputHTMLAttributes<HTMLInputElement>>
-
+type UserDataType = z.infer<typeof userUpdateSchema>
 interface DynamicSocialLinksProps {
-  links: LinkType[]
-  setLinks: React.Dispatch<React.SetStateAction<LinkType[]>>
-  max: number
-  children: InputElement[]
+  register: UseFormRegister<UserDataType>
+  errors: FieldErrors<UserDataType>
+  control: Control<UserDataType>
   onAdd?: () => void
 }
 
 const DynamicSocialLinks = ({
-  links,
-  setLinks,
+  register,
+  errors,
+  control,
   onAdd,
-  max,
-  children,
 }: DynamicSocialLinksProps) => {
-  const handleTitleChange = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const updatedLinks = [...links]
-    updatedLinks[index].title = e.target.value
-    setLinks(updatedLinks)
-  }
-
-  const handleURLChange = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const updatedLinks = [...links]
-    updatedLinks[index].url = e.target.value
-    setLinks(updatedLinks)
-  }
+  const { fields, append, remove } = useFieldArray({
+    name: 'links',
+    control,
+  })
 
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
-    if (onAdd) {
-      onAdd()
-    }
+    if (onAdd) onAdd()
 
-    const updatedLinks = [...links, { title: '', url: '' }]
-    setLinks(updatedLinks)
+    append({ title: '', url: '' })
   }
 
   const handleDelete = (
@@ -59,53 +50,42 @@ const DynamicSocialLinks = ({
   ) => {
     e.preventDefault()
 
-    const updatedLinks = [...links]
-    updatedLinks.splice(index, 1)
-    setLinks(updatedLinks)
-  }
-
-  const mapChildComponents = (
-    child: InputElement,
-    index: number,
-    key: number
-  ): InputElement | null => {
-    const { name } = child.props
-
-    if (name === 'title') {
-      return React.cloneElement(child, {
-        value: links[index].title,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-          handleTitleChange(index, e),
-        key,
-      })
-    }
-
-    if (name === 'url') {
-      return React.cloneElement(child, {
-        value: links[index].url,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-          handleURLChange(index, e),
-        key,
-      })
-    }
-
-    return null
+    remove(index)
   }
 
   const renderLinks = (): React.ReactNode => {
-    return links.map((link, index) => {
+    return fields.map((link, index) => {
       return (
-        <div className={styles.inputRow} key={index}>
-          {children.map((child, key) => mapChildComponents(child, index, key))}
-          {links.length > 1 && (
-            <Button
-              onClick={(e) => handleDelete(e, index)}
-              variant="outlineDanger"
-              size="sm"
-            >
-              <Icons.Delete size={18} />
-            </Button>
-          )}
+        <div className={styles.inputRow} key={link.id}>
+          <div>
+            <Input
+              type="text"
+              className={styles.input}
+              {...register(`links.${index}.title`)}
+            />
+            <FormInputError
+              message={errors?.links?.[index]?.title?.message}
+              key={index}
+            />
+          </div>
+          <div>
+            <Input
+              type="text"
+              className={styles.input}
+              {...register(`links.${index}.url`)}
+            />
+            <FormInputError
+              message={errors?.links?.[index]?.url?.message}
+              key={index}
+            />
+          </div>
+          <Button
+            onClick={(e) => handleDelete(e, index)}
+            variant="outlineDanger"
+            size="sm"
+          >
+            <Icons.Delete size={18} />
+          </Button>
         </div>
       )
     })
@@ -114,7 +94,7 @@ const DynamicSocialLinks = ({
   return (
     <div className={styles.container}>
       {renderLinks()}
-      {links.length < max && (
+      {fields.length < MAX_USER_LINKS && (
         <Button
           onClick={(e) => handleAdd(e)}
           size="sm"
