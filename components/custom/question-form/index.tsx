@@ -3,7 +3,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Toaster, toast } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import * as z from 'zod'
 
 import { UserType } from '@/types'
@@ -44,6 +44,10 @@ const QuestionForm = ({
     })
 
     if (!response.ok) {
+      if (response.status === 401) {
+        return toast.error('Please log in first.')
+      }
+
       return toast.error('Your question was not sent. Please try again.')
     }
 
@@ -53,7 +57,6 @@ const QuestionForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
-      <Toaster position="top-right" />
       <h3 className={styles.title}>
         Ask <strong>@{user.username}</strong> anonymously
       </h3>
