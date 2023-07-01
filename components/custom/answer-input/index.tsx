@@ -3,7 +3,7 @@
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Toaster, toast } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 import styles from './answer-input.module.scss'
 import { Icons } from '@/components/support/icons'
@@ -51,7 +51,6 @@ const AnswerInput = ({ question }: { question: Pick<QuestionType, '_id'> }) => {
 
   return (
     <>
-      <Toaster position="top-right" />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={styles.answerInputContainer}

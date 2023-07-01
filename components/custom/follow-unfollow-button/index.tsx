@@ -2,6 +2,7 @@
 
 import React from 'react'
 import clsx from 'clsx'
+import { toast } from 'react-hot-toast'
 
 import styles from './follow-unfollow-button.module.scss'
 import { UserType } from '@/types'
@@ -47,6 +48,8 @@ export default function FollowUnfollowButton({
       ) : (
         <Button
           onClick={async () => {
+            if (!data?.user) return toast.error('Please log in first.')
+
             setDisabled(true)
             await followUser(user._id)
             await update()

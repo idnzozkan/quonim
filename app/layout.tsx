@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import { register } from 'timeago.js'
+import { Toaster } from 'react-hot-toast'
 
 import { localeFunc } from '@/lib/timeago'
 import Providers from '@/components/support/providers'
@@ -33,6 +34,7 @@ export default function RootLayout({
     <Providers>
       <html lang="en" className={inter.className}>
         <body>
+          <Toaster position="top-right" />
           {/* @ts-expect-error Server Component */}
           <Navbar />
           <div className="container">
