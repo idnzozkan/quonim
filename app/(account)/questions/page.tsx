@@ -9,27 +9,6 @@ import { UnauthorizedError } from '@/lib/utils/exceptions'
 import { connectToDB } from '@/lib/db'
 import Question from '@/models/question'
 
-async function getQuestions(): Promise<QuestionType[] | null> {
-  try {
-    await connectToDB()
-
-    const user = await getCurrentUser()
-
-    if (!user) {
-      throw new UnauthorizedError()
-    }
-
-    const questions = (await Question.find({
-      to: user?.id,
-      answer: null,
-    }).sort({ createdAt: -1 })) as QuestionType[]
-
-    return questions
-  } catch (error) {
-    return null
-  }
-}
-
 export default async function QuestionsPage() {
   const questions = await getQuestions()
 
@@ -53,4 +32,25 @@ export default async function QuestionsPage() {
       ))}
     </div>
   )
+}
+
+async function getQuestions(): Promise<QuestionType[] | null> {
+  try {
+    await connectToDB()
+
+    const user = await getCurrentUser()
+
+    if (!user) {
+      throw new UnauthorizedError()
+    }
+
+    const questions = (await Question.find({
+      to: user?.id,
+      answer: null,
+    }).sort({ createdAt: -1 })) as QuestionType[]
+
+    return questions
+  } catch (error) {
+    return null
+  }
 }
