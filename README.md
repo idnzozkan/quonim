@@ -32,6 +32,7 @@ In the current version of Quonim, ***even the platform owner cannot access*** th
 * **Authentication:** NextAuth.js
 * **Database:** MongoDB (Mongoose)
 * **Styling:** SCSS
+* **UI Component Library:** Radix UI
 * **Forms:** React Hook Form
 * **Validations:** Zod
 
