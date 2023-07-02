@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/idnzozkan/quonim/assets/59365742/44e86ecc-b7ea-4ffa-833d-fb4b751ce4f0" alt="Logo" >
+    <img src="https://github.com/idnzozkan/quonim/assets/59365742/1b6c2b17-be62-41ca-b110-ac6749a5eaff" alt="Logo" >
   </a>
 
   <h2 align="center">Quonim - Anonymous Q&A Network</h3>
